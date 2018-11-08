@@ -1,15 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {DataService} from './services/data.service';
-import { AccauntComponent } from './Components/accaunt/accaunt.component';
+import {ProfileComponent} from './components/profile/profile.component';
+import { ListComponent } from './components/list/list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccauntComponent,
+    ProfileComponent,
+    ListComponent,
   ],
   imports: [
     BrowserModule,
@@ -20,4 +22,5 @@ import { AccauntComponent } from './Components/accaunt/accaunt.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

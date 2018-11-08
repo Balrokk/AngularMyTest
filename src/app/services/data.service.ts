@@ -9,7 +9,7 @@ export interface UserModels {
     lastName: string;
     role: string;
     dateBorn: any;
-    statusWork: boolean;
+    statusWork: any;
     photo: any;
     comment: string;
 }
@@ -17,10 +17,6 @@ export interface UserModels {
 @Injectable()
 
 export class DataService {
-
-
-
-
 
     userList: BehaviorSubject<any> = new BehaviorSubject(
         [
@@ -63,9 +59,9 @@ export class DataService {
         this.userList.next(users);
     }
 
-    editUserById(formData: UserModels) {
+    editUserById(formData: UserModels, userId: number) {
         const newUserList = this.userList.value.map((item: UserModels) => {
-            if (item.id === formData.id) {
+            if (item.id === userId) {
                 return formData;
             } else {
                 return item;
@@ -75,15 +71,16 @@ export class DataService {
         this.userList.next(newUserList);
     }
 
-    getDataFromDb() {
-
+    addUser(user) {
+        if (user) {
+            user.id = this.getIdNewUser(); // Получили id
+            this.userList.value.push(user);
+            this.userList.next(this.userList.value);
+        }
     }
 
-    getDataFromLs() {
-
-    }
-
-    getUserById() {
-
+    getIdNewUser() {
+        // fixme делать получение id с учетом id меющихся в userList (следующий id)
+        return 123;
     }
 }
