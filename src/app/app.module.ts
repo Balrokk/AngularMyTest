@@ -14,7 +14,7 @@ import { ListComponent } from './components/list/list.component';
     ListComponent,
   ],
   imports: [
-    BrowserModule,
+      BrowserModule,
       ReactiveFormsModule
   ],
   providers: [

@@ -18,34 +18,13 @@ export interface UserModels {
 
 export class DataService {
 
-    userList: BehaviorSubject<any> = new BehaviorSubject(
-        [
-            {
-                id: 1,
-                firstName: 'Константин',
-                secondName: 'Белов',
-                lastName: 'Иванович',
-                role: 'Директор',
-                dateBorn: moment('1996-06-01').toDate(),
-                statusWork: true,
-                photo: 'https://pp.userapi.com/c824503/v824503118/b9f12/DmtUpTyffX4.jpg',
-                comment: 'Хороший человек',
-            },
-            {
-                id: 2,
-                firstName: 'Константин2',
-                secondName: 'Белов2',
-                lastName: 'Иванович2',
-                role: 'зам Директор',
-                dateBorn: moment('1996-06-01').toDate(),
-                statusWork: true,
-                photo: 'https://pp.userapi.com/c824503/v824503118/b9f12/DmtUpTyffX4.jpg',
-                comment: 'Хороший человек',
-            },
-        ]
-    );
+    userList: BehaviorSubject<any> = new BehaviorSubject([]);
 
     constructor() {
+        const lsUsers = localStorage.getItem('users');
+        if (lsUsers !== null) {
+            this.userList.next(JSON.parse(lsUsers));
+        }
     }
 
     deleteUser(userId) {
@@ -55,18 +34,22 @@ export class DataService {
             }
             return true;
         });
-        console.log(users);
         this.userList.next(users);
+        this.saveToLocalStorage();
     }
 
     editUserById(formData: UserModels, userId: number) {
-        const newUserList = this.userList.value.map((item: UserModels) => {
+
+        const newUserList = this.userList.value.map((item: UserModels, i) => {
+
             if (item.id === userId) {
+                formData.id = userId;
                 return formData;
             } else {
                 return item;
             }
         });
+
 
         this.userList.next(newUserList);
     }
@@ -76,11 +59,20 @@ export class DataService {
             user.id = this.getIdNewUser(); // Получили id
             this.userList.value.push(user);
             this.userList.next(this.userList.value);
+            this.saveToLocalStorage();
         }
     }
 
+    // Сохраняем в ls
+    saveToLocalStorage() {
+        localStorage.setItem('users', JSON.stringify(this.userList.value));
+    }
+
     getIdNewUser() {
-        // fixme делать получение id с учетом id меющихся в userList (следующий id)
-        return 123;
+        let id = 1;
+        this.userList.value.forEach(() => {
+            id++;
+        });
+        return id;
     }
 }

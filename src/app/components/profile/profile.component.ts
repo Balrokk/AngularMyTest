@@ -11,7 +11,7 @@ export class ProfileComponent implements OnInit {
     @Input() userId: number;
     @Output() closeProfile: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-//fixme Добавить как то id
+
     myForm: FormGroup = new FormGroup({
             firstName:  new FormControl('', [Validators.required]),
             secondName:  new FormControl('', [Validators.required]),
@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
     constructor(
         private dataService: DataService,
     ) {
+
     }
 
     ngOnInit() {
@@ -50,6 +51,7 @@ export class ProfileComponent implements OnInit {
 
     saveUser() {
         const formData: UserModels = this.myForm.getRawValue();
+
         if (this.userId) { // Редактирование
             this.dataService.editUserById(formData, this.userId);
         } else { // обавление поьзователья

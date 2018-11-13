@@ -1,40 +1,25 @@
-<div class="row">
-  <div class="col-12">
-    <table class="table table-dark">
-      <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Имя Фамилия Отчество</th>
-        <th scope="col">Должность</th>
-        <th scope="col">Дата рождения</th>
-        <th scope="col">Статус</th>
-        <th scope="col">Действие</th>
+<div class="tg">
+    <div class="tg-row">
+        <div class="tg-cell column-heading" [ngStyle]="{width: '10%'}">#</div>
+        <div class="tg-cell column-heading" [ngStyle]="{width: '30%'}">Имя Фамилия Отчество</div>
+        <div class="tg-cell column-heading" [ngStyle]="{width: '20%'}">Должность</div>
+        <div class="tg-cell column-heading" [ngStyle]="{width: '20%'}">Дата рождения</div>
+        <div class="tg-cell column-heading" [ngStyle]="{width: '10%'}">Статус</div>
+        <div class="tg-cell column-heading" [ngStyle]="{width: '10%'}">Действие</div>
+    </div>
 
-      </tr>
-      </thead>
+    <div class="tg-row" *ngFor="let user of users | async;let i = index">
+        <div class="tg-cell" [ngStyle]="{width: '10%'}">{{i+1}}</div>
+        <div class="tg-cell" [ngStyle]="{width: '30%'}">{{user.firstName}} {{user.secondName}} {{user.lastName}}</div>
+        <div class="tg-cell" [ngStyle]="{width: '20%'}">{{user.role}}</div>
+        <div class="tg-cell" [ngStyle]="{width: '20%'}">{{user.dateBorn | date:"dd-MM-yyyy"}}</div>
+        <div class="tg-cell" [ngStyle]="{width: '10%'}">{{user.statusWork}}</div>
+        <div class="tg-cell" [ngStyle]="{width: '10%'}">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <i class="fa fa-address-card-o btn btn-primary" (click)="openInfoUser(user.id)"></i>
+                <i class="fa fa-trash-o btn btn-danger" (click)="deleteUser(user.id)"></i>
 
-      <tbody>
-      <tr *ngFor="let user of users | async; let i = index">
-        <th scope="row">{{i+1}}</th>
-        <td>{{user.firstName}} {{user.secondName}} {{user.lastName}}</td>
-        <td>{{user.role}}</td>
-        <td>{{user.dateBorn | date:"dd-MM-yyyy"}}</td>
-        <td>{{user.statusWork}}</td>
-        <td>
-          <div class="row">
-            <div class="col-6">
-              <i class="fa fa-address-card-o btn btn-primary" (click)="openInfoUser(user.id)"></i>
             </div>
-            <div class="col-6">
-              <i class="fa fa-trash-o btn btn-danger" (click)="deleteUser(user.id)"></i>
-            </div>
-          </div>
-        </td>
-
-      </tr>
-      </tbody>
-
-
-    </table>
-  </div>
+        </div>
+    </div>
 </div>

@@ -5,11 +5,13 @@ import {BehaviorSubject} from 'rxjs';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
+    styleUrls: ['./list.component.css']
 })
 export class ListComponent {
-  @Output() changeUserProfile: EventEmitter<any> = new EventEmitter<any>();
 
-  users: BehaviorSubject<any>;
+    @Output() changeUserProfile: EventEmitter<any> = new EventEmitter<any>();
+
+    users: BehaviorSubject<any>;
 
   constructor(
     private dataService: DataService,
