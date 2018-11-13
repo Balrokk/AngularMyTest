@@ -16,6 +16,11 @@
     overflow: hidden;
     list-style: none;
 }
+
+.tg-cell {
+    border-top: 1px solid #d4d4d4;
+}
+
 .tg .tg-row .tg-cell.column-heading {
     background-color: #43bac0;
     color: white;
